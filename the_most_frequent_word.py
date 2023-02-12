@@ -1,10 +1,10 @@
 with open("input.txt", "r") as file:
     contents = file.read().split()
-    ans = [0 for _ in range(len(contents))]
+    contents.sort()
     dct = {}
-    for i, word in enumerate(contents):
+    for word in contents:
         if word not in dct:
             dct[word] = 0
-        ans[i] = dct[word]
         dct[word] += 1
-print(*ans)
+    ans = sorted(dct.items(), key=lambda x: x[1], reverse=True)[0][0]
+print(ans)
