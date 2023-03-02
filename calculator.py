@@ -1,18 +1,29 @@
+from math import inf
+
+
 n = int(input())
-dp = [n]
-num_of_operations = 0
-last_dp = n
-while last_dp > 1:
-    if last_dp % 3 == 0:
-        dp.append(last_dp // 3)
-        num_of_operations += 1
-    elif last_dp % 2 == 0:
-        dp.append(last_dp // 2)
-        num_of_operations += 1
-    elif last_dp % 3 == 1 or last_dp % 2 == 1:
-        dp.append(last_dp - 1)
-        num_of_operations += 1
-    last_dp = dp[-1]
-dp.reverse()
-print(num_of_operations)
-print(*dp)
+dp = [0] * (n + 1)
+for i in range(2, n + 1):
+    if i % 2 == 0:
+        num_of_operations_prev_2 = dp[i // 2]
+    else:
+        num_of_operations_prev_2 = inf
+    if i % 3 == 0:
+        num_of_operations_prev_3 = dp[i // 3]
+    else:
+        num_of_operations_prev_3 = inf
+    dp[i] = 1 + min(dp[i - 1], num_of_operations_prev_2, num_of_operations_prev_3)
+ans = [n]
+while n > 1:
+    comparison = []
+    comparison += [(dp[n - 1], n - 1)]
+    if n % 2 == 0:
+        comparison += [(dp[n // 2], n // 2)]
+    if n % 3 == 0:
+        comparison += [(dp[n // 3], n // 3)]
+    n_next = sorted(comparison)[0][1]
+    ans.append(n_next)
+    n = n_next
+print(dp[-1])
+ans.reverse()
+print(*ans)
