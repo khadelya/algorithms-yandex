@@ -11,15 +11,17 @@ with open("input.txt", "r") as file:
                 dp[i][j] = 1 + dp[i - 1][j - 1]
             else:
                 dp[i][j] = max(dp[i][j - 1], dp[i - 1][j])
+    lcs = []
     i = M
     j = N
-    ans = []
-    for _ in range(1, min(N + 1, M + 1)):
-        if dp[i][j - 1] == dp[i][j]:
+    while i > 0 and j > 0:
+        if sequence_2[i] == sequence_1[j]:
+            lcs += [sequence_2[i]]
+            i -= 1
             j -= 1
-        if dp[i - 1][j - 1] < dp[i][j] and dp[i][j - 1] != dp[i][j]:
-            ans += [sequence_1[j]]
-        i -= 1
-        j -= 1
-    ans.reverse()
-    print(*ans)
+        elif dp[i - 1][j] > dp[i][j - 1]:
+            i -= 1
+        else:
+            j -= 1
+    lcs.reverse()
+    print(*lcs)
