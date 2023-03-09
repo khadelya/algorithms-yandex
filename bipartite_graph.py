@@ -25,11 +25,11 @@ with open("input.txt", "r") as file:
             visited = [vertex]
             colors[vertex] = 1
             stack = list(graph[vertex])
+            for neig in stack:
+                colors[neig] = 2
             while len(stack):
                 last_element = stack[-1]
                 if last_element not in visited:
-                    if colors[last_element] == 0:
-                        colors[last_element] = 3 - colors[visited[-1]]
                     visited.append(last_element)
                     stack.pop()
                     neighbours = graph[last_element]
@@ -44,20 +44,14 @@ with open("input.txt", "r") as file:
     different_colors = set()
     for component in components:
         if len(component) > 1:
-            print(component)
-            for i in range(1, len(component)):
-                if abs(colors[component[i]] - colors[component[i - 1]]) == 1:
-                    different_colors.add(True)
-                else:
-                    different_colors.add(False)
-            print(different_colors)
+            for vertex in component:
+                neighbours = graph[vertex]
+                for neig in neighbours:
+                    if abs(colors[vertex] - colors[neig]) == 1:
+                        different_colors.add(True)
+                    else:
+                        different_colors.add(False)
     if all(different_colors):
         print("YES")
     else:
         print("NO")
-    print(graph)
-    print(different_colors)
-    print(components)
-    print(colors)
-    for v in [13, 87, 70, 36, 74, 52, 58, 31, 18, 54]:
-        print(f"{v} {colors[v]}")
