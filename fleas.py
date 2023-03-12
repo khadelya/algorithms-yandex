@@ -5,7 +5,7 @@ with open("input.txt", "r") as file:
     for line in contents[1:]:
         fleas.append(tuple(map(int, line.split())))
     path_exists = True
-    path_length_sum = []
+    path_length_sum = 0
     end = (S - 1, T - 1)
     dx = [-2, -1, 1, 2, 2, 1, -1, -2]
     dy = [-1, -2, -2, -1, 1, 2, 2, 1]
@@ -31,8 +31,8 @@ with open("input.txt", "r") as file:
             if end not in path_length:
                 path_exists = False
             else:
-                path_length_sum.append(path_length[end])
+                path_length_sum += path_length[end]
     if path_exists:
-        print(sum(path_length_sum))
+        print(path_length_sum)
     else:
         print("-1")
