@@ -9,25 +9,31 @@ with open("input.txt", "r") as file:
         max_height = 0
         if start < end:
             first = last = start - 1
-            while last < end - 1:
+            while first < end and last < end:
                 while last < end - 1 and y_coord[last + 1] > y_coord[last]:
                     last += 1
                 max_height_now = y_coord[last] - y_coord[first]
                 max_height += max_height_now
-                while last < end - 1 and y_coord[last + 1] < y_coord[last]:
+                if max_height_now == 0:
+                    first += 1
+                    last = first
+                else:
                     last += 1
-                first = last
+                    first = last
             print(max_height)
         elif start > end:
             first = last = end - 1
-            while last < start - 1:
+            while first < start and last < start:
                 while last < start - 1 and y_coord[last + 1] < y_coord[last]:
                     last += 1
                 max_height_now = y_coord[first] - y_coord[last]
                 max_height += max_height_now
-                while last < start - 1 and y_coord[last + 1] > y_coord[last]:
+                if max_height_now == 0:
+                    first += 1
+                    last = first
+                else:
                     last += 1
-                first = last
+                    first = last
             print(max_height)
         elif start == end:
             print("0")
