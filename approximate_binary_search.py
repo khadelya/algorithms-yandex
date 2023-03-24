@@ -6,7 +6,11 @@ with open("input.txt", "r") as file:
     smallest_num = arr1[0]
     largest_num = arr1[-1]
     for num in arr2:
-        if num >= smallest_num and num <= largest_num:
+        if num <= smallest_num:
+            print(smallest_num)
+        elif num >= largest_num:
+            print(largest_num)
+        else:
             left = 0
             right = N - 1
             while left < right:
@@ -15,9 +19,9 @@ with open("input.txt", "r") as file:
                     right = middle
                 else:
                     left = middle + 1
-            if arr1[left] == num:
-                print("YES")
+            closest_larger_num = arr1[left]
+            closest_smaller_num = arr1[left - 1]
+            if num - closest_smaller_num <= closest_larger_num - num:
+                print(closest_smaller_num)
             else:
-                print("NO")
-        else:
-            print("NO")
+                print(closest_larger_num)
