@@ -1,4 +1,3 @@
-# правый бин поиск
 with open("input.txt", "r") as file:
     n, a, b, w, h = list(map(int, file.read().split()))
     if min(a, b) + 2 > min(w, h) or max(a, b) + 2 > max(w, h) or a * b * n == w * h:
