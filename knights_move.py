@@ -1,4 +1,4 @@
-with open("input.txt", "r") as file:
+with open("input.txt', "r") as file:
     N, M = list(map(int, file.read().split()))
     if N == M == 1:
         print(1)
